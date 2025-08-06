@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        *{
+            padding: 0px;
+            margin: 0px;
+            font-family:unset;
+            box-sizing: border-box;     
+            
+        }
+
+        body {
+            background: linear-gradient(to right, navy, rgb(58, 3, 58)) ;
+            width: 100%;
+            height:100vh;
+            padding: 10px;
+
+
+        }
+        #TDLApp {
+            width: 100%;
+            max-width: 540px;;
+            height: auto;
+            background-color:#fff;
+            margin: 100px auto 20px ;
+            padding: 40px 30px 70px;
+            border-radius: 10px;
+            
+
+        }
+
+        #header{
+            
+            display: flex;
+            padding: 2px;
+            margin: 5px;
+            align-items: center;
+            margin-bottom: 20px;
+            
+        }
+
+        #img{
+
+            height: 15px;
+            margin-left: 10px;
+            
+            
+        }
+
+        #heading{
+            color:#002765;
+            font-size: 20px;
+        }
+        /**--------**/
+
+        #Addbox{
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background-color: #edeef0;
+            border-radius:30px;
+            padding-left:20px;
+            margin-bottom: 25px;
+            
+        }
+
+        #inpBox{
+            flex: 1;
+            font-size: 16px;;
+            border:none;
+            outline: none;
+            color:black;
+            
+            background-color: transparent;
+
+            padding:10px;
+            font-weight: 14px;
+            
+            
+            
+        }
+
+        #btn{
+            
+            padding:16px 50px;
+            color: white;
+            background-color: #ff5945;
+            border-radius: 40px;
+            border:none;
+            outline:none;
+            font-size: 16px;
+            cursor: pointer;
+            
+        }
+
+        ul li{
+            list-style: none;
+            font-size: 17px;
+            padding: 12px, 8px, 12px, 50px;
+            user-select: none;
+            cursor: pointer;
+            margin-left: 20px;
+            position: relative;
+            line-height: 40px;
+            
+
+
+        }
+
+        ul li::before{
+       content: '';
+       position: absolute;
+       height: 20px;
+       width:20px;
+       border-radius: 50%;
+       background-image: url(uncheck.png);
+       background-size: cover;
+       background-position: center;
+       top: 10px;
+       left:-25px;
+
+
+    }
+    ul li.checked{
+        color:#555;
+        text-decoration: line-through;
+    }
+
+    ul li.checked::before{
+               background-image: url(Ticl.png);
+
+
+    }
+
+    ul li span{
+        position: absolute;
+        right:0px;
+        top:0px;
+        width:40px;
+        height:40px;
+        font-size:22px;
+        color:#555;
+        line-height:40px;
+        text-align: center;
+        border-radius: 50%;
+
+
+
+    }
+
+    ul li span:hover{
+        background: #edeef0;
+    }
+
+        
+
+
+
+
+
+
+        
+
+    </style>
+    
+</head>
+<body>
+
+    <div id="TDLApp">
+        <div id="header">
+            <h1 id="heading">To Do List </h1>
+        <img src="BookLogo.png" id="img">
+        </div>
+
+        <div id="Addbox">
+            <input id="inpBox" type="text" placeholder="Add your task" autocomplete="off" >
+            <button id="btn" onclick="addTas()">Add</button>
+        </div>
+
+        
+            <ul id="TaskSp">
+            <!-- <li class="checked">Task1</li><br>
+            <li>Task 2</li><br>
+
+            <li>Task 3</li> -->
+        </ul>
+        
+        
+<script>
+    const inpB = document.getElementById("inpBox")
+    const ListC = document.getElementById("TaskSp")
+    function addTas(){
+        if(inpB.value === ''){
+            alert("You must write something")
+        }
+        else{
+            let li= document.createElement("li")
+            li.innerHTML=inpB.value;
+            ListC.appendChild(li);
+            let span = document.createElement("span");
+                span.innerHTML="\u00d7";
+                li.appendChild(span);
+            
+            
+        }
+        inpB.value="";//to make the input box empty
+        saveData();
+        
+
+
+    }
+
+    ListC.addEventListener("click", function(e){
+        if(e.target.tagName==="LI"){
+            e.target.classList.toggle("checked");
+            saveData();
+        }
+        else if(e.target.tagName==="SPAN"){
+            e.target.parentElement.remove();
+            saveData();
+        }
+    }, false);
+
+    function saveData(){
+        localStorage,setItem("data", ListC.innerHTML);
+    }
+
+    function showTask(){
+        ListC.innerHTML = localStorage.getItem("data");
+
+    }
+    showTask();
+
+    
+
+
+
+
+</script>
+
+    </div>
+    
+    
+    
+</body>
+</html>
